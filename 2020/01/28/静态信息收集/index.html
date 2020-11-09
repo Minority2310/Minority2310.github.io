@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="学习,生活,工作" />
+   
+  <meta name="description" content="Minority的博客-知识整理总结" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    静态信息收集 |  Minority&#39;s Blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.png" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="Minority's Blog" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-静态信息收集"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  静态信息收集
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/01/28/%E9%9D%99%E6%80%81%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" class="article-date">
+  <time datetime="2020-01-28T02:05:07.000Z" itemprop="datePublished">2020-01-28</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.1k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">4 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="信息收集内容"><a href="#信息收集内容" class="headerlink" title="信息收集内容"></a>信息收集内容</h1><ul>
+<li><p><strong>服务器</strong>配置信息</p>
+</li>
+<li><p><strong>网站信息：</strong>网站注册人、目标网站系统、目标服务器系统、目标网站相关子域名、目标服务器开放端口、同服务器存放网站</p>
+</li>
+</ul>
+<h1 id="域名信息收集"><a href="#域名信息收集" class="headerlink" title="域名信息收集"></a>域名信息收集</h1><h2 id="whois查询"><a href="#whois查询" class="headerlink" title="whois查询"></a>whois查询</h2><p><a target="_blank" rel="noopener" href="https://whois.chinaz.com/">站长工具</a></p>
+<p><a target="_blank" rel="noopener" href="https://x.threatbook.cn/">微步</a></p>
+<blockquote>
+<p>查询注册域名的详细信息的数据库(如域名所有人、域名归属者联系方式、域名注册商、域名注册日期和过期日期等)</p>
+</blockquote>
+<h2 id="txt记录查询"><a href="#txt记录查询" class="headerlink" title="txt记录查询"></a>txt记录查询</h2><blockquote>
+<p>查看邮箱能否被欺骗，结果如下图</p>
+</blockquote>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nslookup -<span class="built_in">type</span>=txt example.com</span><br></pre></td></tr></table></figure>
+
+<img src="https://wj-pictures.oss-cn-beijing.aliyuncs.com/img/Snipaste_2019-07-23_11-24-43.png" alt="txt记录" style="zoom:67%;" />
+
+
+
+<h2 id="子域名信息收集"><a href="#子域名信息收集" class="headerlink" title="子域名信息收集"></a>子域名信息收集</h2><h3 id="工具暴力破解"><a href="#工具暴力破解" class="headerlink" title="工具暴力破解"></a>工具暴力破解</h3><h4 id="DNSenum-kali-linux"><a href="#DNSenum-kali-linux" class="headerlink" title="DNSenum(kali linux)"></a>DNSenum(kali linux)</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">root@kali&gt;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -f是指定字典文件进行域名爆破(可选)</span></span><br><span class="line">dnsenum -f /usr/share/dnsenum/dns.txt --dnsserver 114.114.114.114 baidu.com -o baidu.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="Meltego"><a href="#Meltego" class="headerlink" title="Meltego"></a>Meltego</h4><h4 id="subDomainsBrute-子域名爆破工具"><a href="#subDomainsBrute-子域名爆破工具" class="headerlink" title="subDomainsBrute 子域名爆破工具"></a>subDomainsBrute 子域名爆破工具</h4><h3 id="域传送漏洞检测"><a href="#域传送漏洞检测" class="headerlink" title="域传送漏洞检测"></a>域传送漏洞检测</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cmd</span>&gt;</span><br><span class="line">nslookup</span><br><span class="line"># 指定DNS服务器</span><br><span class="line">server <span class="number">114</span>.<span class="number">114</span>.<span class="number">114</span>.<span class="number">114</span></span><br><span class="line"># 设置DNS记录类型为NS</span><br><span class="line"><span class="built_in">set</span> <span class="built_in">type</span>=ns</span><br><span class="line"># 输入检测域名</span><br><span class="line">hdc.edu.cn</span><br><span class="line"># 切换DNS服务器</span><br><span class="line">server dns1.hdc.edu.cn</span><br><span class="line"># 列出子域名</span><br><span class="line">ls hdc.edu.cn</span><br></pre></td></tr></table></figure>
+
+<img src="https://wj-pictures.oss-cn-beijing.aliyuncs.com/img/Snipaste_2020-01-27_16-37-11.png" alt="域传送漏洞检测" style="zoom: 67%;" />
+
+
+
+<h1 id="服务器信息收集"><a href="#服务器信息收集" class="headerlink" title="服务器信息收集"></a>服务器信息收集</h1><h2 id="域名系统DNS-Domain-Name-System-信息"><a href="#域名系统DNS-Domain-Name-System-信息" class="headerlink" title="域名系统DNS(Domain Name System)信息"></a>域名系统DNS(Domain Name System)信息</h2><blockquote>
+<p>通过域名解析服务器将域名解析为ip</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">DNS记录类型</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">A记录</td>
+<td align="center">记录域名对应的IP地址</td>
+</tr>
+<tr>
+<td align="center">CNAME记录</td>
+<td align="center">别名记录，允许多个别名指向同一个IP地址</td>
+</tr>
+<tr>
+<td align="center">MX记录</td>
+<td align="center">邮件交换记录，指向一个邮件服务器</td>
+</tr>
+<tr>
+<td align="center">NS记录</td>
+<td align="center">域名服务器记录用来指定该域名是由哪个服务器解析</td>
+</tr>
+</tbody></table>
+<h2 id="路由信息收集"><a href="#路由信息收集" class="headerlink" title="路由信息收集"></a>路由信息收集</h2><h3 id="traceroute"><a href="#traceroute" class="headerlink" title="traceroute"></a>traceroute</h3><blockquote>
+<p>传统的traceroute技术是发送UDP或者ICMP的ECHO，一般防火墙都是关闭UDP的高端口和禁止ICMP。<strong>探测过程中有防火墙将无法收集完整地路由信息</strong></p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> windows下</span></span><br><span class="line">tracert &lt;目标ip地址/域名&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> linux下</span></span><br><span class="line">traceroute &lt;目标ip地址/域名&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="网站程序信息收集"><a href="#网站程序信息收集" class="headerlink" title="网站程序信息收集"></a>网站程序信息收集</h1><h2 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a>搜索引擎</h2><h3 id="Google-Hacking"><a href="#Google-Hacking" class="headerlink" title="Google Hacking"></a>Google Hacking</h3><blockquote>
+<p>借助搜索引擎构造特殊的语句查询来获取相关信息的一种方法，可通过Google搜索引擎来进行信息收集</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>关键字</strong></th>
+<th align="center"><strong>含义</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">site:</td>
+<td align="center">指定域名</td>
+</tr>
+<tr>
+<td align="center">intext:</td>
+<td align="center">正文中出现关键字的网页</td>
+</tr>
+<tr>
+<td align="center">intitle:</td>
+<td align="center">标题中出现关键字的网页</td>
+</tr>
+<tr>
+<td align="center">info:</td>
+<td align="center">一些基本信息包含关键字的网页</td>
+</tr>
+<tr>
+<td align="center">inurl:</td>
+<td align="center">url中存在关键字的网页</td>
+</tr>
+<tr>
+<td align="center">filetype:</td>
+<td align="center">指定文件类型</td>
+</tr>
+<tr>
+<td align="center">cache:</td>
+<td align="center">Google搜索缓存的网页副本</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><code>intext:Powered by ZuiTu software</code></p>
+<p><code>intitle:TOPSEC TOS Web User Interface</code></p>
+<p><code>intitle:亿邮通讯</code></p>
+<p><code>intext:后台</code></p>
+<p><code>intext:管理员登录</code></p>
+<p><code>filetype:do</code></p>
+<p><code>filetype:action</code><br><strong>搜索存在敏感信息的网站：</strong></p>
+<p><code>intitle:管理登录 filetype:php</code><br><strong>收集Discuz论坛主机</strong>：</p>
+<p><code>intext:Powered by Discuz</code></p>
+</blockquote>
+<h3 id="Baidu"><a href="#Baidu" class="headerlink" title="Baidu"></a>Baidu</h3><blockquote>
+<p>可以通过百度的高级搜索功能对目标站点进行信息收集，</p>
+<p>查询语法<code>site:(xxx.com)(管理后台)</code></p>
+</blockquote>
+<h3 id="Bing"><a href="#Bing" class="headerlink" title="Bing"></a>Bing</h3><blockquote>
+<p>Bing也是一款常用的搜索引擎，我们也可通过它自带的高级搜索功能来对目标网站进行信息收集，其搜索语法于百度相似</p>
+</blockquote>
+<h2 id="网络空间搜索"><a href="#网络空间搜索" class="headerlink" title="网络空间搜索"></a>网络空间搜索</h2><table>
+<thead>
+<tr>
+<th align="center">平台名称</th>
+<th>简介</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ZoomEye</td>
+<td>一款针对网络空间的搜索引擎，收录了互联网空间中的设备、网站及其使用的服务或组件等信息</td>
+<td align="left">收集目标信息，包括应用名、版本、开放端口、操作系统、服务名、地理位置等等</td>
+</tr>
+<tr>
+<td align="center">Shodan</td>
+<td>一款针对网络空间的搜索引擎，收录了互联网空间中的设备、网站及其使用的服务或组件等信息</td>
+<td align="left">收集目标信息，包括应用名、版本、开放端口、操作系统、服务名、地理位置等等</td>
+</tr>
+<tr>
+<td align="center">FOFA</td>
+<td>FOFA是白帽汇推出的一款网络空间资产搜索引擎。  它能够帮助企业客户迅速进行网络资产匹配、加快后续工作进程。 例如进行漏洞影响范围分析、应用分布统计、应用流行度排名统计等。</td>
+<td align="left">收集目标相关的网络资产，包括子域名收集、IP地址确认、根据域名收集企业相关的其他网络资产</td>
+</tr>
+</tbody></table>
+<h3 id="Shodan"><a href="#Shodan" class="headerlink" title="Shodan"></a>Shodan</h3><p><a target="_blank" rel="noopener" href="http://www.shodan.io/">http://www.shodan.io</a></p>
+<h4 id="搜索语法"><a href="#搜索语法" class="headerlink" title="搜索语法"></a>搜索语法</h4><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">server:<span class="title">GNU</span> <span class="title">rsp</span>/1.0</span></span><br><span class="line"><span class="function">&lt;<span class="title">td</span> <span class="title">class</span>=&quot;<span class="title">v</span>&quot;&gt;<span class="title">Windows</span> <span class="title">NT</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Shodan命令行"><a href="#Shodan命令行" class="headerlink" title="Shodan命令行"></a>Shodan命令行</h4><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 环境Python3</span><br><span class="line"># 安装</span><br><span class="line">pip install shodan</span><br><span class="line">shodan</span><br><span class="line"># 初始化</span><br><span class="line">shodan init &lt;API Key&gt;</span><br><span class="line"># 获取主机漏洞信息</span><br><span class="line">shodan host <span class="number">59</span>.<span class="number">110</span>.<span class="number">244</span>.<span class="number">199</span></span><br><span class="line"># 命令行搜索</span><br><span class="line"># 过滤方式显示ip、端口、运营商、主机名</span><br><span class="line">shodan search --fileds ip_str,port,org,hostname /login.rsp </span><br><span class="line"># 使用Python脚本获取DVR漏洞摄像头</span><br><span class="line"># 安装依赖</span><br><span class="line">pip install tableprint        </span><br><span class="line"><span class="function">c:</span></span><br><span class="line"><span class="function"><span class="title">python</span> <span class="title">DVR.py</span> <span class="title">DVR_ip.txt</span></span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://wj-pictures.oss-cn-beijing.aliyuncs.com/img/Snipaste_2019-07-24_14-47-50.png" alt="Shodan"></p>
+<h3 id="FOFA"><a href="#FOFA" class="headerlink" title="FOFA"></a>FOFA</h3><p><a target="_blank" rel="noopener" href="https://fofa.so/">https://fofa.so/</a></p>
+<h2 id="敏感目录查询"><a href="#敏感目录查询" class="headerlink" title="敏感目录查询"></a>敏感目录查询</h2><ul>
+<li>url后加<code>/robots</code></li>
+<li>phpinfo</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://www.imwuji.cn/2020/01/28/%E9%9D%99%E6%80%81%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8/" rel="tag">信息安全</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" rel="tag">信息收集</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/01/29/HTTP%E5%8D%8F%E8%AE%AE/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            HTTP协议
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/01/19/win10%E7%B3%BB%E7%BB%9F%E9%87%8D%E8%A3%85/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">win10系统重装</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2020
+        <i class="ri-heart-fill heart_icon"></i> Minority
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+        <li>
+          <a href="http://www.beian.miit.gov.cn/" target="_black" rel="nofollow">晋ICP备20000344号</a>
+        </li>
+        
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1279237576&amp;web_id=1279237576'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/minority.png" alt="Minority&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

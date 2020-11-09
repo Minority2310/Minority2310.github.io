@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="学习,生活,工作" />
+   
+  <meta name="description" content="Minority的博客-知识整理总结" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    阿里云部署hexo博客 |  Minority&#39;s Blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.png" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="Minority's Blog" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-阿里云部署Hexo博客"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  阿里云部署hexo博客
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/08/23/%E9%98%BF%E9%87%8C%E4%BA%91%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/" class="article-date">
+  <time datetime="2020-08-23T09:20:00.000Z" itemprop="datePublished">2020-08-23</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.3k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">5 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="一-准备"><a href="#一-准备" class="headerlink" title="一.准备"></a>一.准备</h1><h2 id="云服务器"><a href="#云服务器" class="headerlink" title="云服务器"></a>云服务器</h2><h3 id="域名购买"><a href="#域名购买" class="headerlink" title="域名购买"></a>域名购买</h3><h3 id="云服务器ECS购买"><a href="#云服务器ECS购买" class="headerlink" title="云服务器ECS购买"></a>云服务器ECS购买</h3><h3 id="阿里云OSS购买"><a href="#阿里云OSS购买" class="headerlink" title="阿里云OSS购买"></a>阿里云OSS购买</h3><h3 id="备案"><a href="#备案" class="headerlink" title="备案"></a>备案</h3><blockquote>
+<p> ICP备案号和链接在主题文件夹的<code>_config.yml</code>中添加</p>
+</blockquote>
+<h3 id="ECS配置"><a href="#ECS配置" class="headerlink" title="ECS配置"></a>ECS配置</h3><ol>
+<li><strong>安全组配置(入方向)</strong></li>
+</ol>
+<img src="https://wj-pictures.oss-cn-beijing.aliyuncs.com/img/Snipaste_2020-01-16_17-28-51.png" alt="安全组" style="zoom: 67%;" />
+
+<ol start="2">
+<li><strong>创建快照</strong></li>
+</ol>
+<p>保证出问题时服务器可以回退到初始状态</p>
+<h3 id="Git安装"><a href="#Git安装" class="headerlink" title="Git安装"></a>Git安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git</span><br></pre></td></tr></table></figure>
+
+<h3 id="Node安装"><a href="#Node安装" class="headerlink" title="Node安装"></a>Node安装</h3><h2 id="本地主机"><a href="#本地主机" class="headerlink" title="本地主机"></a>本地主机</h2><h3 id="Git安装-1"><a href="#Git安装-1" class="headerlink" title="Git安装"></a>Git安装</h3><p>安装完成后查看是否安装成功</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git -<span class="literal">-version</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Node安装-1"><a href="#Node安装-1" class="headerlink" title="Node安装"></a>Node安装</h3><p>安装完成后查看是否安装成功</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node <span class="literal">-v</span></span><br><span class="line">npm <span class="literal">-v</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Xshell安装"><a href="#Xshell安装" class="headerlink" title="Xshell安装"></a>Xshell安装</h3><p>用于连接云服务器</p>
+<h3 id="PicGo安装"><a href="#PicGo安装" class="headerlink" title="PicGo安装"></a>PicGo安装</h3><p>可以将本地图片上传到阿里云OSS生成url，便于Markdown图片的引用</p>
+<h1 id="二-配置"><a href="#二-配置" class="headerlink" title="二.配置"></a>二.配置</h1><h2 id="服务器创建git用户"><a href="#服务器创建git用户" class="headerlink" title="服务器创建git用户"></a>服务器创建git用户</h2><p>创建用户：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo useradd git -m</span><br></pre></td></tr></table></figure>
+
+<p>增加git用户执行sudo的权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 740 /etc/sudoers</span><br><span class="line">vim /etc/sudoers</span><br></pre></td></tr></table></figure>
+
+<p>找到以下内容：<code>root ALL=(ALL) ALL</code>在下面添加一行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git     ALL=(ALL)       ALL</span><br></pre></td></tr></table></figure>
+
+<p>保存退出后改回权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 400 /etc/sudoers</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="本机连接服务器"><a href="#本机连接服务器" class="headerlink" title="本机连接服务器"></a>本机连接服务器</h2><blockquote>
+<p><strong>连接方式</strong>：使用SSH的RSA非对称加密算法</p>
+<p><strong>工具</strong>：XShell</p>
+</blockquote>
+<h3 id="开启认证配置"><a href="#开启认证配置" class="headerlink" title="开启认证配置"></a>开启认证配置</h3><p>**服务器(root@user:~#)**：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编辑sshd_config文件</span></span><br><span class="line">vim /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+
+<p>在<code>sshd_config</code>中进行如下配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RSAAuthentication yes</span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
+<p>重启SSH</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop sshd.service</span><br><span class="line">systemctl start sshd.service</span><br></pre></td></tr></table></figure>
+
+<h3 id="建立SSH信任关系"><a href="#建立SSH信任关系" class="headerlink" title="建立SSH信任关系"></a>建立SSH信任关系</h3><h4 id="本机生成密钥对"><a href="#本机生成密钥对" class="headerlink" title="本机生成密钥对"></a>本机生成密钥对</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh<span class="literal">-keygen</span> <span class="literal">-t</span> rsa <span class="literal">-C</span> <span class="string">&quot;邮箱&quot;</span> </span><br><span class="line"><span class="comment"># 回车默认生成路径：C:\Users\username\.ssh</span></span><br><span class="line"><span class="comment"># 回车输入密钥密码：************</span></span><br><span class="line"><span class="comment"># 回车</span></span><br></pre></td></tr></table></figure>
+
+<p>成功后默认路径下会出现新建的密钥对</p>
+<p><img src="https://wj-pictures.oss-cn-beijing.aliyuncs.com/img/SSH-RSA_01_20200820.png"></p>
+<h4 id="发送公钥到服务器"><a href="#发送公钥到服务器" class="headerlink" title="发送公钥到服务器"></a>发送公钥到服务器</h4><p>**服务器(root@user:~#)**：</p>
+<p>在<code>/home/git</code>下创建<code>.ssh</code>目录并设置权限为<strong>600</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /home/git/.ssh</span><br><span class="line">chomd 600 /home/git/.ssh</span><br></pre></td></tr></table></figure>
+
+<p>在<code>.ssh</code>目录中创建<code>authorized_keys</code>文件并设置权限为<strong>600</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi /home/git/.ssh/authorized_keys</span><br><span class="line">chomd 600 /home/git/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：</p>
+<ul>
+<li><p>使用证书登陆，公钥<code>id_rsa.pub</code>是有对应关系的，要把公钥写在要登陆的账户的<code>authorized_ keys</code>文件中</p>
+<ol>
+<li><p>比如要用<strong>root</strong>账号登陆，那么就要把公钥写在<code>/root/.ssh/authorized_keys</code>文件里</p>
+</li>
+<li><p>如果要用<strong>git</strong>账号登陆，那么就要把公钥写在<code>/home/git/.ssh/authorized_ keys</code>文件里</p>
+</li>
+</ol>
+</li>
+<li><p><code>.ssh</code>目录与<code>authorized_ keys</code>权限不能太大，777之类的肯定是无法登陆的</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>本机：</strong></p>
+<p>将<code>C:\Users\username\.ssh</code>路径中的<code>id_rsa.pub</code>文件内容复制</p>
+<p>**服务器(root@user:~#)**：</p>
+<p>将本机复制的<strong>单行</strong>内容粘贴到<code>/home/git/.ssh/authorized_keys</code>文件中保存</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /home/git/.ssh/authorized_keys</span><br><span class="line"><span class="comment"># i</span></span><br><span class="line"><span class="comment"># 粘贴</span></span><br><span class="line"><span class="comment"># ESC -&gt; :wq!</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="本地免密连接服务器"><a href="#本地免密连接服务器" class="headerlink" title="本地免密连接服务器"></a>本地免密连接服务器</h4><ol>
+<li><p>打开XShell</p>
+</li>
+<li><p>导入本机密钥</p>
+</li>
+</ol>
+<img src="https://wj-pictures.oss-cn-beijing.aliyuncs.com/img/SSH-RSA_02_20200820.png" style="zoom:67%;" />
+
+<p><img src="https://wj-pictures.oss-cn-beijing.aliyuncs.com/img/SSH-RSA_03_20200820.png"></p>
+<ol start="3">
+<li>新建连接</li>
+</ol>
+<img src="https://wj-pictures.oss-cn-beijing.aliyuncs.com/img/SSH-RSA_04_20200820.png" style="zoom: 50%;" />
+
+
+
+<h2 id="服务器创建空仓库"><a href="#服务器创建空仓库" class="headerlink" title="服务器创建空仓库"></a>服务器创建空仓库</h2><p><strong>切换为git用户(git@user:~$)：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">su - git                </span><br><span class="line"><span class="built_in">cd</span> /home/git/</span><br><span class="line">mkdir -p projects/blog  //创建你的博客目录</span><br><span class="line">mkdir repos &amp;&amp; <span class="built_in">cd</span> repos</span><br><span class="line">git init --bare blog.git  //创建一个空仓库</span><br><span class="line"><span class="built_in">cd</span> blog.git/hooks		//创建hook钩子函数</span><br><span class="line">vi post-receive</span><br></pre></td></tr></table></figure>
+
+<p><strong>改变 blog.git 目录的拥有者为git用户(git@user:~/repos$)</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R git:git blog.git</span><br></pre></td></tr></table></figure>
+
+<p><strong>添加备份目录</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/git/projects/</span><br><span class="line">mkdir -p tmp/blog</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改<code>post-receive</code>钩子函数的内容</strong>：<code>vim ~/repos/blog.git/hooks/post-receive</code></p>
+<blockquote>
+<p>重点是git clone配置网站根目录<code>home/git/projects/blog</code></p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">GIT_REPO=/home/git/repos/blog.git    <span class="comment"># git仓库路径</span></span><br><span class="line">TMP_GIT_CLONE=/home/git/projects/tmp/blog</span><br><span class="line">PUBLIC_WWW=/home/git/projects/blog  <span class="comment"># 网站目录</span></span><br><span class="line">rm -rf <span class="variable">$&#123;TMP_GIT_CLONE&#125;</span></span><br><span class="line">git <span class="built_in">clone</span> <span class="variable">$GIT_REPO</span> <span class="variable">$TMP_GIT_CLONE</span></span><br><span class="line">rm -rf <span class="variable">$&#123;PUBLIC_WWW&#125;</span>/*</span><br><span class="line">cp -rf <span class="variable">$&#123;TMP_GIT_CLONE&#125;</span>/* <span class="variable">$&#123;PUBLIC_WWW&#125;</span></span><br><span class="line">chmod +x post-receive          <span class="comment"># 赋予脚本的执行权限</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>git用户赋权</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span> // 退出到 root 登录</span><br><span class="line">chown -R git:git /home/git/repos/blog.git // 添加权限</span><br><span class="line">chown git:git -R /home/git/projects/</span><br></pre></td></tr></table></figure>
+
+<p>本机测试，成功后实际拉下来的是你的<code>/home/git/projects/blog</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@xxx:&#x2F;home&#x2F;git&#x2F;repos&#x2F;blog.git</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h2><blockquote>
+<p>直接使用<code>sudo apt install nginx</code>安装出现问题，所以采用编译安装</p>
+</blockquote>
+<h3 id="下载源码编译工具"><a href="#下载源码编译工具" class="headerlink" title="下载源码编译工具"></a>下载源码编译工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install gcc</span><br><span class="line">sudo apt-get install libpcre3 libpcre3-dev</span><br><span class="line">sudo apt-get install zlib1g zlib1g-dev zlib1g.dev</span><br><span class="line">sudo apt-get install openssl openssl-dev</span><br><span class="line">sudo apt-get install openssl libssl-dev</span><br></pre></td></tr></table></figure>
+
+<h3 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h3><p><strong>解压到常用目录</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/</span><br><span class="line">wget http://nginx.org/download/nginx-1.8.1.tar.gz</span><br><span class="line">tar -zxvf nginx-1.8.1.tar.gz</span><br><span class="line"><span class="comment">#重命名</span></span><br><span class="line">mv nginx-1.8.1 nginx </span><br><span class="line"><span class="built_in">cd</span> nginx</span><br><span class="line"><span class="comment">#开始配置</span></span><br><span class="line">./configure --prefix=/usr/<span class="built_in">local</span>/nginx --with-http_ssl_module</span><br><span class="line"><span class="comment"># 编译nginx：</span></span><br><span class="line">sudo make</span><br><span class="line"><span class="comment"># 安装nginx：</span></span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>端口号</li>
+<li>修改域名</li>
+<li>修改根目录位置</li>
+<li>修改用户为root用户</li>
+</ul>
+<p><img src="https://wj-pictures.oss-cn-beijing.aliyuncs.com/img/nginx_01_20200823.png"></p>
+<p><img src="https://wj-pictures.oss-cn-beijing.aliyuncs.com/img/nginx_02_20200823.png"></p>
+<h3 id="启动Nginx"><a href="#启动Nginx" class="headerlink" title="启动Nginx"></a>启动Nginx</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /usr/<span class="built_in">local</span>/nginx/sbin/nginx -c /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>报错：缺少下图两个文件</p>
+<p>解决方法：创建对应目录和文件，重新执行上面的命令</p>
+</blockquote>
+<p><img src="https://wj-pictures.oss-cn-beijing.aliyuncs.com/img/nginx_03_20200823.png"></p>
+<h1 id="三-部署"><a href="#三-部署" class="headerlink" title="三.部署"></a>三.部署</h1><h2 id="创建Hexo博客"><a href="#创建Hexo博客" class="headerlink" title="创建Hexo博客"></a>创建Hexo博客</h2><p>首先在本机选择一个文件夹来存放博客文件</p>
+<p>在该文件夹中打开CMD输入命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g       <span class="comment"># hexo全局安装</span></span><br><span class="line">hexo init &lt;博客名&gt;             <span class="comment"># 初始化博客并命名</span></span><br><span class="line"><span class="built_in">cd</span> &lt;博客名&gt;                     </span><br><span class="line">cnpm install                   <span class="comment"># 安装依赖</span></span><br><span class="line">hexo generate(g)               <span class="comment"># 生成静态页面(markdowm文件-&gt;html文件)  </span></span><br><span class="line">hexo server(s)                 <span class="comment"># 网站本地预览</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Hexo配置"><a href="#Hexo配置" class="headerlink" title="Hexo配置"></a>Hexo配置</h2><p>修改博客根目录配置文件<code>_config.yml</code>中<strong>deploy</strong>部分，添加repo(以git用户的身份操作)：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">message:</span> <span class="string">update</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@xxx:/home/git/repos/blog.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<p>安装远程部署插件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>文章发布：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp;&amp; hexo g -d</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/cungudafa/article/details/104585711?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522159819588219724846447789%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=159819588219724846447789&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v3~pc_rank_v3-1-104585711.pc_ecpm_v3_pc_rank_v3&utm_term=Hexo%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91(Ubantu16.04)%E3%80%90%E8%B6%85%E8%AF%A6%E7%BB%86%E8%B8%A9&spm=1018.2118.3001.4187%5D(https://blog.csdn.net/cungudafa/article/details/104585711?ops_request_misc=%7B%22request_id%22:%22159819588219724846447789%22,%22scm%22:%2220140713.130102334.pc_all.%22%7D&request_id=159819588219724846447789&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v3~pc_rank_v3-1-104585711.pc_ecpm_v3_pc_rank_v3&utm_term=Hexo%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E5%88%B0%E9%98%BF%E9%87%8C%E4%BA%91(Ubantu16.04)%5B%E8%B6%85%E8%AF%A6%E7%BB%86%E8%B8%A9&spm=1018.2118.3001.4187">Hexo自动部署到阿里云(Ubantu16.04)【超详细踩坑记录】</a> ——作者：<a target="_blank" rel="noopener" href="https://me.csdn.net/cungudafa">cungudafa</a></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://www.imwuji.cn/2020/08/23/%E9%98%BF%E9%87%8C%E4%BA%91%E9%83%A8%E7%BD%B2Hexo%E5%8D%9A%E5%AE%A2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91/" rel="tag">阿里云</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/05/17/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(%E4%B8%80)/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Python学习笔记(一)</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2020
+        <i class="ri-heart-fill heart_icon"></i> Minority
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+        <li>
+          <a href="http://www.beian.miit.gov.cn/" target="_black" rel="nofollow">晋ICP备20000344号</a>
+        </li>
+        
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1279237576&amp;web_id=1279237576'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/minority.png" alt="Minority&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

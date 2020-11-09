@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-Hans">
+
+
+<head>
+  <meta charset="utf-8" />
+   
+  <meta name="keywords" content="学习,生活,工作" />
+   
+  <meta name="description" content="Minority的博客-知识整理总结" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    HTTP协议 |  Minority&#39;s Blog
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.png" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="Minority's Blog" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-HTTP协议"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  HTTP协议
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/01/29/HTTP%E5%8D%8F%E8%AE%AE/" class="article-date">
+  <time datetime="2020-01-29T08:09:07.000Z" itemprop="datePublished">2020-01-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.3k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">8 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="HTTP协议简介"><a href="#HTTP协议简介" class="headerlink" title="HTTP协议简介"></a>HTTP协议简介</h1><blockquote>
+<p><strong>HTTP</strong>(HyperText Transfer Protocol，超文本传输协议)，是一种用于分布式、协作式和超媒体信息系统的应用层协议。HTTP是万维网数据通信的基础。</p>
+</blockquote>
+<h1 id="HTTP协议版本"><a href="#HTTP协议版本" class="headerlink" title="HTTP协议版本"></a>HTTP协议版本</h1><h2 id="HTTP-1-1"><a href="#HTTP-1-1" class="headerlink" title="HTTP/1.1"></a>HTTP/1.1</h2><p>1999年6月公布的<code>RFC 2616</code>，定义了HTTP协议中现今广泛使用的一个版本——HTTP/1.1</p>
+<h3 id="持久连接"><a href="#持久连接" class="headerlink" title="持久连接"></a>持久连接</h3><p>1.1 版的最大变化，就是引入了持久连接（persistent connection），即TCP连接默认不关闭，可以被多个请求复用，不用声明<code>Connection: keep-alive</code></p>
+<p>客户端和服务器发现对方一段时间没有活动，就可以主动关闭连接。不过，规范的做法是，客户端在最后一个请求时，发送<code>Connection: close</code>，明确要求服务器关闭TCP连接</p>
+<h3 id="管道机制"><a href="#管道机制" class="headerlink" title="管道机制"></a>管道机制</h3><p>1.1 版还引入了管道机制（pipelining），即在同一个TCP连接里面，客户端可以同时发送多个请求。这样就进一步改进了HTTP协议的效率。</p>
+<p>举例来说，客户端需要请求两个资源。以前的做法是，在同一个TCP连接里面，先发送A请求，然后等待服务器做出回应，收到后再发出B请求。管道机制则是允许浏览器同时发出A请求和B请求，但是服务器还是按照顺序，先回应A请求，完成后再回应B请求。</p>
+<h3 id="Content-Length字段"><a href="#Content-Length字段" class="headerlink" title="Content-Length字段"></a>Content-Length字段</h3><p>一个TCP连接现在可以传送多个回应，势必就要有一种机制，区分数据包是属于哪一个回应的。这就是<code>Content-length</code>字段的作用，声明本次回应的数据长度。</p>
+<p><code>Content-Length: 3495</code></p>
+<p>上面代码告诉浏览器，本次回应的长度是3495个字节，后面的字节就属于下一个回应了。</p>
+<p>在1.0版中，<code>Content-Length</code>字段不是必需的，因为浏览器发现服务器关闭了TCP连接，就表明收到的数据包已经全了。</p>
+<h2 id="HTTP-2"><a href="#HTTP-2" class="headerlink" title="HTTP/2"></a>HTTP/2</h2><p> HTTP/2标准于2015年5月以<code>RFC 7540</code>正式发表，取代HTTP 1.1成为HTTP的实现标准</p>
+<h3 id="二进制协议"><a href="#二进制协议" class="headerlink" title="二进制协议"></a>二进制协议</h3><p>HTTP/1.1 版的头信息肯定是文本（ASCII编码），数据体可以是文本，也可以是二进制。HTTP/2 则是一个彻底的二进制协议，头信息和数据体都是二进制，并且统称为”帧”（frame）：头信息帧和数据帧。</p>
+<p>二进制协议的一个好处是，可以定义额外的帧。HTTP/2 定义了近十种帧，为将来的高级应用打好了基础。如果使用文本实现这种功能，解析数据将会变得非常麻烦，二进制解析则方便得多。</p>
+<h1 id="与HTTP关系密切的协议、服务和方案"><a href="#与HTTP关系密切的协议、服务和方案" class="headerlink" title="与HTTP关系密切的协议、服务和方案"></a>与HTTP关系密切的协议、服务和方案</h1><h2 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h2><p>IP(Internet Protocol)协议位于网络层，作用是把各种数据包发送给目标</p>
+<ul>
+<li>IP地址：指明了节点被分配到的地址，可变换</li>
+<li>MAC地址：网卡所属的固定地址，基本不会更改</li>
+<li>IP地址可以和MAC地址进行配对</li>
+</ul>
+<h2 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h2><p>TCP 位于传输层，提供可靠的字节流服务</p>
+<h3 id="字节流服务"><a href="#字节流服务" class="headerlink" title="字节流服务"></a>字节流服务</h3><p>字节流服务(Byte Stream Service)是指，为了方便传输，将大块数据分割成以报文段（ segment ）为单位的数据包进行管理</p>
+<h3 id="可靠的传输服务"><a href="#可靠的传输服务" class="headerlink" title="可靠的传输服务"></a>可靠的传输服务</h3><p>可以把数据准确可靠地传给对方</p>
+<h3 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h3><p>TCP 协议采用了<strong>三次握手(hree-way handshaking)策略</strong>确保数据能准确无误地送达目标处</p>
+<blockquote>
+<p>标志位(flag)：</p>
+<ul>
+<li>SYN(synchronize)：发送端发送给接收端</li>
+<li>SYN/ACK：接收端回传确认信息</li>
+<li>ACK(acknowledgement)：发送端再回传数据包，代表“握手”结束</li>
+</ul>
+</blockquote>
+<h2 id="DNS服务"><a href="#DNS服务" class="headerlink" title="DNS服务"></a>DNS服务</h2><p><strong>DNS(Domain Name System)服务</strong>和 HTTP 协议一样位于应用层的协议。它提供域名到 IP 地址之间的解析服务。</p>
+<blockquote>
+<p>计算机既可以被赋予 IP 地址，也可以被赋予主机名和域名。</p>
+<p>用户通常使用主机名或域名来访问对方的计算机，而不是直接通过 IP 地址访问。</p>
+</blockquote>
+<p>DNS 协议提供通过域名查找 IP 地址，或逆向从 IP 地址反查域名的服务。</p>
+<h2 id="统一资源标识符方案"><a href="#统一资源标识符方案" class="headerlink" title="统一资源标识符方案"></a>统一资源标识符方案</h2><blockquote>
+<p><strong>统一资源标识符</strong>(Uniform Resource Identifier，URI)用于在世界范围内唯一标识并定位信息资源</p>
+<p>两种形式：</p>
+<ul>
+<li>统一资源定位符(Uniform Resource Locator，URL)</li>
+<li>统一资源名(Uniform Resource Name，URN)</li>
+</ul>
+</blockquote>
+<h3 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h3><p>统一资源定位符(URL)是URI最常见的形式，可以明确的说明如何从一个精确、固定的位置获取资源</p>
+<p>格式及示例：</p>
+<blockquote>
+<p>​      ①                           ②                                      ③            ④             ⑤                   ⑥                          ⑦                     ⑧</p>
+<p><code>http:</code>//<code>username:password</code>@<code>example.com</code>:<code>8042</code><strong>/over/there/</strong><code>index.html</code><strong>?id=456123&amp;page=3</strong><code>#name</code></p>
+</blockquote>
+<ul>
+<li><p>①协议部分：指定使用协议，<code>//</code>为分隔符</p>
+</li>
+<li><p>②登录信息(认证)部分：指定用户名和密码作为获取资源的身份认证，此项是可选项</p>
+</li>
+<li><p>③服务器地址部分：域名或IP地址均可。</p>
+</li>
+<li><p>④服务器端口号部分：指定服务器连接的网络端口号，用户省略则自动使用默认端口号</p>
+</li>
+<li><p>⑤虚拟目录部分：从服务器地址后的第一个<code>/</code>到最后一个 <code>/</code>为止，虚拟目录不是URL必须的部分。</p>
+</li>
+<li><p>⑥文件名部分：从服务器地址后的最后一个<code>/</code>到<code>?</code>为止是文件名部分；如果没有<code>?</code>则是从服务器地址后的最后一个<code>/</code>开始到<code>#</code>为止是文件名部分；如果<code>?</code>和<code>#</code>均没有，则从服务器地址后的最后一个<code>/</code>到URL结束都是文件名部分。文件名部分也不是一个URL必须的部分，如果省略该部分，则使用默认的文件名</p>
+</li>
+<li><p>⑦查询参数部分：从<code>?</code>开始到<code>#</code>为止是查询参数部分，允许有多个参数，参数与参数之间用<code>&amp;</code>作为分隔符。</p>
+</li>
+<li><p>⑧锚部分：从<code>#</code>开始到最后，锚部分也不是一个URL必须的部分。</p>
+</li>
+</ul>
+<h1 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h1><h2 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a>请求报文</h2><h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ul>
+<li><p>请求行</p>
+<ul>
+<li>请求方法</li>
+<li>请求URI</li>
+<li>HTTP版本</li>
+</ul>
+</li>
+<li><p>请求头</p>
+<ul>
+<li>请求首部字段</li>
+<li>通用首部字段</li>
+<li>实体首部字段</li>
+<li>其他</li>
+</ul>
+</li>
+<li><p>空白行</p>
+</li>
+<li><p>请求正文</p>
+</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 请求行</span><br><span class="line">POST /login.php HTTP/<span class="number">1</span>.<span class="number">1</span>     </span><br><span class="line"># 请求头(一个“:”是一行)</span><br><span class="line"><span class="function">HOST: <span class="title">www.xxx.com</span>                 </span></span><br><span class="line"><span class="function"><span class="title">User</span>-<span class="title">Agent</span>: <span class="title">Mozilla</span>/5.0(<span class="title">Windows</span> <span class="title">NT</span> 6.1;<span class="title">rv15</span>.0)</span></span><br><span class="line"><span class="function"><span class="title">Gecko</span>/20100101 <span class="title">Firefox</span>/1.5</span></span><br><span class="line"><span class="function"># 空白行代表请求头结束</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"># 请求正文(非必须)</span></span><br><span class="line"><span class="function"><span class="title">Username</span>=<span class="title">admin</span>&amp;<span class="title">password</span>=<span class="title">admin</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="请求方法-大小写敏感"><a href="#请求方法-大小写敏感" class="headerlink" title="请求方法(大小写敏感)"></a>请求方法(大小写敏感)</h3><table>
+<thead>
+<tr>
+<th align="left"><strong>GET</strong></th>
+<th>请求获取由Request-URI所标识的资源。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>POST</strong></td>
+<td>在Request-URI所标识的资源后附加新的数据(请求正文中)</td>
+</tr>
+<tr>
+<td align="left"><strong>HEAD</strong></td>
+<td>请求获取Request-URI所标识的资源的响应消息报头</td>
+</tr>
+<tr>
+<td align="left">OPTIONS</td>
+<td>请求查询服务器的性能，或查询与资源相关的选项和需求</td>
+</tr>
+<tr>
+<td align="left">PUT</td>
+<td>请求服务器存储一个资源，并用Request-URI所标识的资源</td>
+</tr>
+<tr>
+<td align="left">DELETE</td>
+<td>请求服务器删除由Request-URI所标识的资源</td>
+</tr>
+<tr>
+<td align="left">TRACE</td>
+<td>请求服务器回送收到的请求信息，主要用于测试或诊断</td>
+</tr>
+<tr>
+<td align="left">CONNECT</td>
+<td>通常用于SSL加密服务器的链接（经由非加密的HTTP代理服务器）</td>
+</tr>
+<tr>
+<td align="left">PATCH</td>
+<td>用于将局部修改应用到资源</td>
+</tr>
+</tbody></table>
+<h3 id="常见请求头"><a href="#常见请求头" class="headerlink" title="常见请求头"></a>常见请求头</h3><table>
+<thead>
+<tr>
+<th align="left">User-Agent</th>
+<th>客户端将他的操作系统、浏览器和其他属性告诉服务器</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Host</td>
+<td>指定请求资源的主机地址和端口号，如Host:<a target="_blank" rel="noopener" href="http://www.xxx.com/">www.xxx.com</a></td>
+</tr>
+<tr>
+<td align="left">Connection</td>
+<td>当前连接是否保持，如Connection：Keep-Alive</td>
+</tr>
+<tr>
+<td align="left">Accept-Language</td>
+<td>指定一种自然语言，如Accept-Language:zh-cn</td>
+</tr>
+<tr>
+<td align="left">Accept</td>
+<td>浏览器可以接受的MIME类型</td>
+</tr>
+<tr>
+<td align="left">Referer</td>
+<td>包含一个URL，用户从该URL代表的页面发出访问当前请求的页面</td>
+</tr>
+<tr>
+<td align="left">Cooike(身份令牌)</td>
+<td>Cookie是一段文本，它常用来表示请求者身份</td>
+</tr>
+<tr>
+<td align="left">Range</td>
+<td>Range可以请求实体的部分内容，多线程下载器常用此请求</td>
+</tr>
+<tr>
+<td align="left">x-forward-for</td>
+<td>XXF头，它代表请求端的IP，可以有多个，中间逗号隔开</td>
+</tr>
+</tbody></table>
+<h2 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h2><h3 id="结构-1"><a href="#结构-1" class="headerlink" title="结构"></a>结构</h3><ul>
+<li>响应行(状态行)<ul>
+<li>状态码</li>
+<li>原因短语</li>
+<li>HTTP版本</li>
+</ul>
+</li>
+<li>响应头<ul>
+<li>通用首部字段</li>
+<li>响应首部字段</li>
+<li>实体首部字段</li>
+<li>其他</li>
+</ul>
+</li>
+<li>空白行</li>
+<li>响应正文</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 响应行</span><br><span class="line">HTTP/<span class="number">1</span>.<span class="number">1</span> <span class="number">200</span> OK</span><br><span class="line"># 响应头(消息报头)</span><br><span class="line"><span class="function">Date:<span class="title">Thu</span>,28 <span class="title">Feb</span> 2013 07:36:47 <span class="title">GMT</span>     </span></span><br><span class="line"><span class="function"><span class="title">Server:BWS</span>/1.0</span></span><br><span class="line"><span class="function"><span class="title">Content</span>-<span class="title">Length</span>:4199</span></span><br><span class="line"><span class="function"><span class="title">Content</span>-<span class="title">Type:text</span>/<span class="title">html</span>;<span class="title">charset</span>=<span class="title">utf8</span></span></span><br><span class="line"><span class="function"><span class="title">Cache</span>-<span class="title">Control:private</span></span></span><br><span class="line"><span class="function"><span class="title">Expries</span>: <span class="title">Date:Thu</span>,28 <span class="title">Feb</span> 2013 07:36:47 <span class="title">GMT</span></span></span><br><span class="line"><span class="function"><span class="title">Content</span>-<span class="title">Encoding:gzip</span></span></span><br><span class="line"><span class="function"><span class="title">set</span>-<span class="title">Cookie:HPS_PSSID</span>=2022<span class="title">_1438_1944_1788</span>;<span class="title">path</span>=/;</span></span><br><span class="line"><span class="function"><span class="title">domain</span>=.<span class="title">xxx.com</span></span></span><br><span class="line"><span class="function"><span class="title">Connection:Keep</span>-<span class="title">Alive</span></span></span><br><span class="line"><span class="function"># 空白行代表响应头结束</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"># 响应正文(消息主体)</span></span><br><span class="line"><span class="function">&lt;<span class="title">html</span>&gt;                 </span></span><br><span class="line"><span class="function">    &lt;<span class="title">head</span>&gt;&lt;<span class="title">title</span>&gt;<span class="title">index.html</span>&lt;/<span class="title">title</span>&gt;&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="function">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h3><table>
+<thead>
+<tr>
+<th align="center">200</th>
+<th>客户端请求成功</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">302</td>
+<td>临时跳转，跳转的地址通过Location指定</td>
+</tr>
+<tr>
+<td align="center">400</td>
+<td>客户端请求语法错误，服务器无法识别</td>
+</tr>
+<tr>
+<td align="center">401</td>
+<td>请求未经授权</td>
+</tr>
+<tr>
+<td align="center">403</td>
+<td>服务器收到请求，但拒绝提供服务</td>
+</tr>
+<tr>
+<td align="center">404</td>
+<td>请求资源不存在</td>
+</tr>
+<tr>
+<td align="center">500</td>
+<td>服务器内部错误</td>
+</tr>
+</tbody></table>
+<h3 id="常见响应头"><a href="#常见响应头" class="headerlink" title="常见响应头"></a>常见响应头</h3><table>
+<thead>
+<tr>
+<th>Server</th>
+<th>WEB服务器名称，如Server：Apache/1.3.6(Unix)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Content-Type</td>
+<td>用来指明发送给接收者的实体正文的媒体类型（服务器可接受的文本类型）</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>指明实体正文长度</td>
+</tr>
+<tr>
+<td>Keep-Alive</td>
+<td>保持连接时间</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>格林尼治时间</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>表示客户端应当到哪里去提取文档，当客户端接收到请求后会再次发送请求</td>
+</tr>
+<tr>
+<td>Set-Cookie</td>
+<td>向客户端设置Cookie</td>
+</tr>
+</tbody></table>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>Copyright： </strong>
+          
+          Copyright is owned by the author. For commercial reprints, please contact the author for authorization. For non-commercial reprints, please indicate the source.
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://www.imwuji.cn/2020/01/29/HTTP%E5%8D%8F%E8%AE%AE/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C/" rel="tag">网络</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/02/02/%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B(%E5%8A%A8%E6%80%81%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86)/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            扫描探测(动态信息收集)
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/01/28/%E9%9D%99%E6%80%81%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">静态信息收集</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2020
+        <i class="ri-heart-fill heart_icon"></i> Minority
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        Powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+        <span class="division">|</span>
+        Theme - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+        <li>
+          <a href="http://www.beian.miit.gov.cn/" target="_black" rel="nofollow">晋ICP备20000344号</a>
+        </li>
+        
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1279237576&amp;web_id=1279237576'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/minority.png" alt="Minority&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>
